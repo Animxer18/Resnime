@@ -12,7 +12,6 @@ function RecentRelease() {
         let response = await axios.get("/recent-release")
         setRecent(response.data)
         setLoading(false)
-
     }
     
    
@@ -32,7 +31,7 @@ function RecentRelease() {
                 {recent.map(
                     (recentAnime)=>{
                         return (
-                            <div className="cursor-pointer lg:w-72" key={recentAnime.episodeId}>
+                            <div className="cursor-pointer lg:w-60" key={recentAnime.episodeId}>
                                 <CardAnime 
                                 id={recentAnime.episodeId}
                                 titleAnime={recentAnime.animeTitle}

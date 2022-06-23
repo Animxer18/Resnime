@@ -1,30 +1,34 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, {  useEffect, useState } from 'react';
+import { useOutletContext, useParams } from 'react-router-dom';
 import CardAnime from '../components/CardAnime';
 import Loading from '../components/Loading';
 function SearchResult(props) {
    
-    const [search,setSearch] = useState("")
     const [result,setResult] = useState("")
     const [loading,setLoading] = useState(false)
+    const search = useOutletContext()
     
-    
-    const searchAnime = async(e)=>{
-        e.preventDefault();
+
+    useEffect(
+        ()=>{
+            fetchSearchResult()
+        },[search]
+    )
+
+    const fetchSearchResult = async()=>{
         setLoading(true)
         await axios.get(`/search?keyw=${search}`)
         .then(
             (res)=>{
                 setResult(res.data)
                 setLoading(false)
-                setSearch("")
-                console.log(res.data)
+                console.log("dri search result : ",res.data)
             }
             ).catch(
                 (err)=>{
                     console.log("error : ",err)
                     setLoading(false)
-                    setSearch("")
             }
         )
     }
@@ -36,15 +40,10 @@ function SearchResult(props) {
                 <Loading />
             ):(
             <div>
-                <form onSubmit={searchAnime} >
-                    <input type="text" placeholder='Search Anime' 
-                    className='border w-full text-center px-4 py-2 border-gray-300 focus:outline-0' 
-                    value={search} onChange={(e)=>setSearch(e.target.value)}/>
-                </form>
+              {search}
 
-                
                {result.length>0?(
-                    <div className='grid grid-cols-2 lg:grid-cols-5 gap-x-3 gap-y-10 my-10'>
+                    <div className='grid grid-cols-2  lg:grid-cols-5  gap-10 my-10'>
                     {result.map(
                         (hasil)=>{
                             return(

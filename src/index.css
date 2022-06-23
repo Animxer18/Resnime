@@ -14,3 +14,12 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+  .modal{
+    @apply scale-0 flex  items-center transition-all duration-300 justify-center delay-300 fixed bg-[rgba(0,0,0,0.5)] inset-0
+  }
+  .modal-body{
+  @apply bg-white px-4  py-8 rounded-xl relative transition-all duration-300 scale-0
+  }
+}

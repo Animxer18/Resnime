@@ -8,25 +8,22 @@ import NotFound from "./views/NotFound";
 
 
 function App() {
-  return (
-    <div>
-          <Router>
-            <Routes>
-                
-                <Route path="" element={<Navbar />}>
-                  <Route path="/" element={<HomeView />}></Route>
-                  <Route path="/anime/:id" element={<DetailsAnime />}></Route>
-                  <Route path="/stream/:episode" element={<StreamAnime />}></Route>
-                  <Route path="/search" element={<SearchResult />}></Route>
-                </Route>
-                
-                <Route path="*" element={<Navigate to={'/not-found'} replace/>}></Route>
-                <Route path="/not-found" element={<NotFound  />}></Route>
-                
-            </Routes>
-          </Router>
-    </div>
-  );
+ 
+    return(
+      <Router>
+          <Routes>
+              <Route path="" element={<Navbar />}>
+                <Route path="/" element={<HomeView />}></Route>
+                <Route path="/anime/:id" element={<DetailsAnime />}></Route>
+                <Route path="/stream/:episode" element={<StreamAnime />}></Route>
+                <Route path="/search" element={<SearchResult />}></Route>
+              </Route>
+              <Route path="*" element={<Navigate to={'/not-found'} replace/>}></Route>
+              <Route path="/not-found" element={<NotFound  />}></Route>
+          </Routes>
+        </Router>
+    )
+  
 }
 
 export default App;

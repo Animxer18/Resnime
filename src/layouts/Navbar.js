@@ -10,19 +10,18 @@ function Navbar() {
     const auth = getAuth(app)
     let [isUserSignedIn,setUserSignerdIn] = useState(true)
     
-    
     useEffect(
         ()=>{
-            onAuthStateChanged(auth, user => {
+            onAuthStateChanged(auth, async user => {
                 // Check for user status
-                console.log("stat of user : ",user)
+                console.log("data user from navbar : ",user)
                 if(user){ 
-                  setUserSignerdIn(true)
+                  await setUserSignerdIn(true)
                 }else{
-                    setUserSignerdIn(false)
+                   await setUserSignerdIn(false)
                 }
-              });
-        },[]
+            });
+        },[auth, isUserSignedIn]
     )
     const searchAnime = (e)=>{
         e.preventDefault();
@@ -52,6 +51,7 @@ function Navbar() {
                 console.log("logout successfull")
             }
         )
+        setUserSignerdIn(false)
         navigate("/")
     }
 
@@ -83,7 +83,11 @@ function Navbar() {
 
                 </div>
             </div>
-                <Outlet context={searchFin}/>
+                <Outlet context={
+                    {
+                        searchFin,isUserSignedIn
+                    }
+                    }/>
 
         </>
     );

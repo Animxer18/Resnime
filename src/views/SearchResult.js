@@ -7,18 +7,18 @@ function SearchResult(props) {
    
     const [result,setResult] = useState("")
     const [loading,setLoading] = useState(false)
-    const search = useOutletContext()
+    const {searchFin} = useOutletContext()
     
 
     useEffect(
         ()=>{
             fetchSearchResult()
-        },[search]
+        },[searchFin]
     )
 
     const fetchSearchResult = async()=>{
         setLoading(true)
-        await axios.get(`/search?keyw=${search}`)
+        await axios.get(`/search?keyw=${searchFin}`)
         .then(
             (res)=>{
                 setResult(res.data)
@@ -40,7 +40,7 @@ function SearchResult(props) {
                 <Loading />
             ):(
             <div>
-              {search}
+              {searchFin}
 
                {result.length>0?(
                     <div className='grid grid-cols-2  lg:grid-cols-5  gap-10 my-10'>

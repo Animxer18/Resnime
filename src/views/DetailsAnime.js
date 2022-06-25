@@ -36,6 +36,7 @@ function DetailsAnime(props) {
                     navigate('/not-found')
                 }else{
                     setAnime(res.data)
+                    console.log(res.data)
                     setLoading(false)
                 }
                 
@@ -241,12 +242,24 @@ function DetailsAnime(props) {
                                     (genre)=>{
                                         return(
                                             <div key={genre} 
-                                                className="rounded-full px-3 py-1 bg-blue-200 text-blue-600">
+                                                className="rounded-full px-2 py-1 text-center bg-blue-200 text-blue-600">
                                                 {genre}
                                             </div>
                                         )
                                     }
                                 )}
+                            </div>
+                            
+                            
+                            {anime.totalEpisodes!=='0' &&
+                                <div>
+                                    <strong className='text-xl'>Episode : <span>{anime.totalEpisodes}</span></strong>
+                                </div>
+                                }
+                            
+                            
+                            <div>
+                                <strong className='text-xl'>Status : <span>{anime.status}</span></strong>
                             </div>
                         </div>
 
@@ -267,14 +280,17 @@ function DetailsAnime(props) {
                                 )}
                             </div>
                         ):(
-                            <button onClick={SignInWithFirebaseGoogle} className='px-4 py-2 bg-blue-300 text-white w-full my-5 ' >Add Favourite (Login First)</button>
+                            <div>
+                                <button onClick={SignInWithFirebaseGoogle} className='px-4 py-2 bg-blue-300 text-white w-full my-5 ' >Add Favourite (Login First)</button>
+                            </div>
                         )}
 
                     </div>
 
                     {/* Description */}
                     <div>
-                        <div>
+                        <div className='my-5'>
+                            <h1 className='text-3xl mb-3 font-semibold'>Sinopsis</h1>
                             <p>{anime.synopsis}</p>
                         </div>
                         <div>

@@ -8,7 +8,7 @@ function NotFound() {
     return (
         <div className='flex  text-center justify-center flex-col h-screen items-center'>
             <h1 className='text-4xl font-semibold'>Page Not Found</h1>
-            <p className='w-96 my-5'>Jikalau di saat membuka sebuah anime, dan menemukan halaman ini. Mohon hubungi aku ya lewat 3 cara di bawah!</p>
+            <p className='w-96 my-5'>Jikalau di saat membuka sebuah anime, dan menemukan halaman ini. Mohon hubungi aku ya lewat salah satu dari 3 cara di bawah!</p>
             
             {/* <!-- modify this form HTML and place wherever you want your form --> */}
             <div className='grid grid-cols-3 gap-5 my-5'>

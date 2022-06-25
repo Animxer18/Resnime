@@ -54,20 +54,26 @@ function Navbar() {
         setUserSignerdIn(false)
         navigate("/")
     }
+    
 
+    const moveTo =(destination)=>{
+        navigate(`/${destination}`)
+
+    }
     return (
         <>
-            <div className='bg-blue-500 text-white w-full'>
+            <div className='bg-blue-500 text-white w-full sticky top-0 z-10'>
                 <div className='container flex justify-between mx-auto'>
                     <div className='flex space-x-5'>
                         <Link to="/" className='py-5'>Home</Link>
-                        <Link to="/search" className='py-5'>Genre</Link>
+                        <div onClick={()=>moveTo('popular')} className='py-5 cursor-pointer'>Popular</div>
+                        <div onClick={()=>moveTo('top_airing')} className='py-5 cursor-pointer'>Top Airing</div>
+                        <div onClick={()=>moveTo('movies')} className='py-5 cursor-pointer'>Movies</div>
                     </div>
-                    <form onSubmit={searchAnime}>
+                    <form onSubmit={searchAnime} className="my-3">
                         <input type="text" placeholder='Search Anime' 
                         className='border w-full text-black text-center px-4 py-2 border-gray-300 focus:outline-0' 
                         value={search}  onChange={(e)=>setSearch(e.target.value)}/>
-                        <button>Search</button>
                     </form>
 
                     {isUserSignedIn?(
@@ -83,11 +89,13 @@ function Navbar() {
 
                 </div>
             </div>
+            <div className='container mx-auto'>
                 <Outlet context={
-                    {
-                        searchFin,isUserSignedIn
-                    }
-                    }/>
+                        {
+                            searchFin,isUserSignedIn
+                        }
+                        }/>
+            </div>
 
         </>
     );

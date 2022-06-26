@@ -4,6 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { app, db } from '../Firebase/firebase';
 import FormFeedback from '../FormFeedback';
 import ContactComp from './ContactComp';
+import SimpleModalComp from '../SimpleModalComp'
+import { useNavigate } from 'react-router-dom';
+
+
 
 function ContactRL(props) {
     let [hidden,setHidden] = useState(false)
@@ -19,12 +23,10 @@ function ContactRL(props) {
             name.toLowerCase().match("restu averian putra") || 
             name.toLowerCase().match("res") || 
             name.toLowerCase().match("stu") ){
-            console.log("iyahh")
             setHidden(false)
             setHiddenSuccessAlert(true)
             setName("")
         }else{
-            console.log("engga")
             setHiddenFailedAlert(true)
             setName("")
 
@@ -38,6 +40,9 @@ function ContactRL(props) {
     let [msg,setMsg] = useState("")
     let [errorEmail,setErrorEmail] = useState("")
     let [errorMsg,setErrorMsg] = useState("")
+    let [showFinishedFeedback,setShowFinishedFeedback] = useState(false)
+    const navigate = useNavigate()
+
 
     const auth = getAuth(app)
     const [isUserSignedIn,setUserSignerdIn] = useState(true)
@@ -49,7 +54,6 @@ function ContactRL(props) {
             setErrorEmail("")
         }else{
             setErrorEmail("Format email salah")
-            console.log("email  not aman awikwok")
         }
     }
 
@@ -65,7 +69,6 @@ function ContactRL(props) {
     const fetchUserData = ()=>{
         onAuthStateChanged(auth, user => {
             // Check for user status
-            console.log("user: ",user)
             if(user){ 
             setEmail(user.email)
               return setUserSignerdIn(true)
@@ -76,21 +79,22 @@ function ContactRL(props) {
 
     const addFeedback = async(e)=>{
         e.preventDefault();
-        console.log("hmmm")
         try{
             await addDoc(collection(db, "feedback-from-irl"), {
                 email: email,
                 message: msg,
               });
-              setEmail("")
               setMsg("")
+              setHiddenSuccessAlert(true)
+              setShowFinishedFeedback(true)
         }
         catch(e){
-            console.log("error : ",e)
         }
         
     }
-
+    const backHome = ()=>{
+        navigate("/")
+    }
     useEffect(
         ()=>{
             fetchUserData()
@@ -120,6 +124,15 @@ function ContactRL(props) {
             validateMsg={validateMsg}
             errorMsg={errorMsg}
             />
+             <SimpleModalComp
+                isShowModal={showFinishedFeedback}
+                setShowModal={setShowFinishedFeedback}
+                pesan="Feedback telah dikirim!"
+                pesanKecil={`Feedbackmu akan dibaca oleh ${name}, sang owner dari website ini`}
+                ActionButton={backHome}
+                MainButton="Kembali ke home"
+            />
+            
         </>
     );
 }

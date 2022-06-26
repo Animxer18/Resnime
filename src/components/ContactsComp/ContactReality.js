@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { app, db } from '../Firebase/firebase';
 import FormFeedback from '../FormFeedback';
 import ContactComp from './ContactComp';
+import SimpleModalComp from '../SimpleModalComp'
+import { useNavigate } from 'react-router-dom';
 
 
 function ContactReality(props) {
@@ -20,14 +22,10 @@ function ContactReality(props) {
             name.toLowerCase().match("kadara") || 
             name.toLowerCase().match("vina") || 
             name.toLowerCase().match("pina")){
-            console.log("iyahh")
             setHidden(false)
             setHiddenSuccessAlert(true)
-            setName("")
         }else{
-            console.log("engga")
             setHiddenFailedAlert(true)
-            setName("")
 
         }
     }
@@ -40,6 +38,7 @@ function ContactReality(props) {
     let [errorEmail,setErrorEmail] = useState("")
     let [errorMsg,setErrorMsg] = useState("")
     let [showFinishedFeedback,setShowFinishedFeedback] = useState(false)
+    const navigate = useNavigate()
 
     const auth = getAuth(app)
     const [isUserSignedIn,setUserSignerdIn] = useState(true)
@@ -51,7 +50,6 @@ function ContactReality(props) {
             setErrorEmail("")
         }else{
             setErrorEmail("Format email salah")
-            console.log("email  not aman awikwok")
         }
     }
 
@@ -67,7 +65,6 @@ function ContactReality(props) {
     const fetchUserData = ()=>{
         onAuthStateChanged(auth, user => {
             // Check for user status
-            console.log("user: ",user)
             if(user){ 
             setEmail(user.email)
               return setUserSignerdIn(true)
@@ -78,23 +75,24 @@ function ContactReality(props) {
 
     const addFeedback = async(e)=>{
         e.preventDefault();
-        console.log("hmmm")
         try{
             await addDoc(collection(db, "feedback-from-reality"), {
                 email: email,
                 message: msg,
               });
-              setEmail("")
               setMsg("")
               setHiddenSuccessAlert(true)
               setShowFinishedFeedback(true)
+              
         }
         catch(e){
-            console.log("error : ",e)
         }
         
     }
-
+   
+    const backHome = ()=>{
+        navigate("/")
+    }
     useEffect(
         ()=>{
             fetchUserData()
@@ -124,12 +122,15 @@ function ContactReality(props) {
             validateMsg={validateMsg}
             errorMsg={errorMsg}
             />
-
-            <div className={`modal ${showFinishedFeedback && "scale-100 delay-500"}`}>
-                <div className={`modal-body ${showFinishedFeedback && "scale-100 delay-500"}`}>
-                    <p className='text-4xl'>Ok</p>
-                </div>
-            </div>
+            <SimpleModalComp
+                isShowModal={showFinishedFeedback}
+                setShowModal={setShowFinishedFeedback}
+                pesan="Feedback telah dikirim!"
+                pesanKecil={`Feedbackmu akan dibaca oleh ${name}, sang owner dari website ini`}
+                ActionButton={backHome}
+                MainButton="Kembali ke home"
+            />
+            
     </>
     );
 }

@@ -1,9 +1,9 @@
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
-import { collection, onSnapshot, query } from 'firebase/firestore';
+import { collection, deleteDoc, doc, onSnapshot, query } from 'firebase/firestore';
 import React, { useEffect,  useState } from 'react';
 import { useNavigate} from 'react-router-dom';
 import { app, db } from './Firebase/firebase';
-import SimpleModalComp from './SimpleModalComp';
+import Loading from './Loading';
 function CommentsComp(props) {
     let navigate = useNavigate()
     const [isUserSignedIn,setUserSignerdIn] = useState("")
@@ -27,7 +27,8 @@ function CommentsComp(props) {
                                 idUser:doc.data().idUser,
                                 namaAnime:doc.data().namaAnime,
                                 komentar:doc.data().komentar,
-                                userName:doc.data().userName
+                                userName:doc.data().userName,
+                                animeImg:doc.data().animeImg
                             }
                             komentars.push(dataComments);
                         });
@@ -51,7 +52,6 @@ function CommentsComp(props) {
                await setUserData(user)
             });
             fetchDataComments()
-            console.log("kondisi isUserSignedIn di komentar ?",isUserSignedIn)
         },[auth, isUserSignedIn, userData]
     )
 
@@ -70,55 +70,37 @@ function CommentsComp(props) {
 
 
     const detailAnimeLink = async(id)=>{
-        let idSlice
-        
-        if(id.toLowerCase().match("-season-")){
-            idSlice = id.slice(0,-20) 
-            console.log(id)
-        }else{
-            if(id.toLowerCase().match("episode")){
-                idSlice = id.slice(0,-11)
-            }else {
-                idSlice = id
-            }
-        }
-        if(id.toLowerCase().match("one-piece")){
-            if(id.toLowerCase().match("episode")){
-                idSlice = id.slice(0,-13)
-            }else {
-                idSlice = id
-            }
-        }
-        if(id.toLowerCase().match("nd-")){
-            idSlice = id.slice(0,-11)
-        }
-        if(id.toLowerCase().match('mokuteki-wo')){
-            idSlice = id.slice(0,-10)
-        }
-        console.log("it's not get it ?",idSlice)
-        
-        navigate(`/anime/${idSlice}`)
+        navigate(`/anime/${id}`)
     }
 
+    let hapusKomen = async(id)=>{
+        await deleteDoc(doc(db,"komentar",id))
+    }
 
     return (
-        <div className='container mx-auto'>
-            <h1 className='text-3xl font-semibold'>Komentar</h1>
+        <div >
             {loading?(
-                <p>Loading...</p>
+                <Loading />
             ):(
                 <div>
                     {userData ?(
                         <div>
                             {listComments.length>0?(
-                                <div className='grid grid-cols-2 lg:grid-cols-5 gap-x-3 gap-y-10'>
+                                <div className='flex flex-col space-y-5'>
                                     {listComments.map(
                                         (comm)=>{
                                             return(
-                                                <div onClick={()=>detailAnimeLink(comm.namaAnime)} className="cursor-pointer lg:w-60" key={comm.id}>
-                                                        
-                                                        <h3 className='text-2xl'>{comm.namaAnime}</h3>
-                                                        <p>{comm.komentar}</p>
+                                                <div className='flex justify-between items-center'>
+                                                    <div onClick={()=>detailAnimeLink(comm.namaAnime)} className="flex space-x-5 cursor-pointer" key={comm.id}>
+                                                            <div className='overflow-hidden group'>
+                                                                <img alt='' src={comm.animeImg} className="w-24 group-hover:scale-110 duration-300 transition-all"/>
+                                                            </div>
+                                                            <div className='flex flex-col'>
+                                                                <h3 className='lg:text-3xl text-2xl font-semibold first-letter:uppercase '>{comm.namaAnime.replaceAll("-"," ")}</h3>
+                                                                <q className='italic'>{comm.komentar}</q>
+                                                            </div>
+                                                    </div>
+                                                    <button className='bg-red-700 text-white px-4 py-2 rounded-md' onClick={()=>hapusKomen(comm.id)}><i className='bx bxs-trash-alt'></i></button>
                                                 </div>
                                             )
                                         }
@@ -129,18 +111,12 @@ function CommentsComp(props) {
                             )}
                         </div>
                     ):(
-                        <p>Blum login</p>
+                        <button onClick={()=>SignInWithFirebaseGoogle()} className='px-4 py-2 bg-black text-white rounded-lg'>Login dulu untuk melihat riwayat komentar</button>
                     )}
                 </div>
 
             )}
-            <SimpleModalComp
-            isShowModal={isShowModal}
-            setShowModal={setShowModal}
-            pesan="Kamu belum login"
-            pesanKecil="Silahkan login dulu untuk melihat komentar yang pernah kamu lakukan"
-            ActionButton={SignInWithFirebaseGoogle}
-            />
+            
         </div>
     );
 }

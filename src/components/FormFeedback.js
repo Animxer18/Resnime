@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 function FormFeedbackIRL(props) {
   
-   
+
     return (
         <div className={`modal ${props.hiddenSuccessAlert && "scale-100"}`}>
                 <div className={`modal-body ${props.hiddenSuccessAlert && "scale-100 delay-500"}`}>
                     <i onClick={()=>props.setHiddenSuccessAlert(false)} 
-                        className="absolute cursor-pointer bx bx-x bx-lg -top-5 -right-5 bg-blue-500 text-white rounded-full" ></i>
+                        className="absolute cursor-pointer bx bx-x bx-lg -top-5 -right-5 bg-black text-white rounded-full" ></i>
                     
                     
                     <h1 className='text-3xl font-semibold'>Jadi ada keluhan apa ?</h1>
@@ -28,10 +28,12 @@ function FormFeedbackIRL(props) {
                                 <textarea value={props.msg} onChange={props.validateMsg} name="message"  id='message' className='px-4 py-2 border border-gray-300 focus:outline-0'></textarea>
                                 {props.errorMsg}
                             </div>
-                            <button type="submit" className="px-4 py-2 rounded-md bg-blue-500 text-white my-5">Send</button>
+                            <button type="submit" className="px-4 py-2 rounded-md bg-black lg:text-base text-xl font-semibold text-white my-5">Send</button>
                         </form>
                     </div>
                 </div>
+
+               
         </div>
      
     );

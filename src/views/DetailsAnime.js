@@ -3,9 +3,9 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from
 import { addDoc, collection, deleteDoc, doc, onSnapshot, query } from 'firebase/firestore';
 import React, { useEffect,  useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 import { app, db } from '../components/Firebase/firebase';
 import Loading from '../components/Loading';
-import SimpleModalComp from '../components/SimpleModalComp';
 
 function DetailsAnime(props) {
     let {id} = useParams()
@@ -36,7 +36,6 @@ function DetailsAnime(props) {
                     navigate('/not-found')
                 }else{
                     setAnime(res.data)
-                    console.log(res.data)
                     setLoading(false)
                 }
                 
@@ -45,12 +44,14 @@ function DetailsAnime(props) {
     } 
 
   
-    let addCommentToFirebase = async(idUser,userName,komentar,namaAnime)=>{
+    let addCommentToFirebase = async(idUser,userName,komentar,namaAnime,photoURL,animeImg)=>{
         await addDoc(collection(db,"komentar"),{
             idUser:idUser,
             userName:userName,
             komentar:komentar,
             namaAnime:namaAnime,
+            photoURL:photoURL,
+            animeImg:animeImg
         })
     }
     let addComment = (e)=>{
@@ -61,10 +62,15 @@ function DetailsAnime(props) {
         if(userCurrent){
             setShowSignIn(false)
             if(komentar===''){
-                console.log("Komentar kosong")
                 return
             }
-            addCommentToFirebase(userCurrent.uid,userCurrent.displayName,komentar,id)
+            addCommentToFirebase(
+                userCurrent.uid,
+                userCurrent.displayName,
+                komentar,
+                id,
+                userCurrent.photoURL,
+                anime.animeImg)
             setKomentar("")
         }else{
             setShowSignIn(true)
@@ -84,6 +90,7 @@ function DetailsAnime(props) {
                     userName:doc.data().userName,
                     namaAnime:doc.data().namaAnime,
                     komentar:doc.data().komentar,
+                    photoURL:doc.data().photoURL
                 }
                 commentOfAnime.push(dataComent);
             }); 
@@ -106,10 +113,8 @@ function DetailsAnime(props) {
         signInWithPopup(auth, google_provider)
         .then(
             (res)=>{
-                console.log(res)
                 const credential = GoogleAuthProvider.credentialFromResult(res);
                 const token = credential.accessToken;
-                console.log(token)
                 navigate("/")
             }
         )
@@ -122,7 +127,6 @@ function DetailsAnime(props) {
             
             fetchDataDetails()
             getComment()
-
 
             const fetchDataFavourites = async()=>{
 
@@ -144,7 +148,6 @@ function DetailsAnime(props) {
                             }
                         )
                         if(favoFiltered.length>0){
-                            console.log("favoFiltered : ",favoFiltered)
                             let idFav = favoFiltered[0].id
                             setIdFavourite(idFav)
                             setLoadingFavourite(false)
@@ -153,7 +156,6 @@ function DetailsAnime(props) {
                                 setIsFavourite(true)
                             }
                         }else{
-                            console.log("data kosong")
                             setLoadingFavourite(false)
 
                         }
@@ -198,68 +200,89 @@ function DetailsAnime(props) {
                 userName: user.displayName
                 });
         } catch (e) {
-            console.error("Error adding document: ", e);
         }
     }
     
 
     //Hapus Favourites
     const CancelFavourite = async(idFavourite)=>{
-        console.log("id fav seems bug : ",idFavourite)
         await deleteDoc(doc(db,"favourites",idFavourite))
         setIsFavourite(false)
         setLoadingFavourite(false)
     }
     
-
+ 
     return (
-        <div className='container mx-auto my-5'>
+        <div className='container mx-auto my-5 px-5 overflow-hidden'>
             {loading?(
                <Loading />
             ):(
-                <>
-                    {/* Title, Episode, Thumbnail */}
-                    <div className='flex space-x-5'>
+                <div className='my-5'>
+                    <BackButton />
 
-
-                        {/* Thumbnail */}
-                        <div className='lg:w-64 overflow-hidden '>
-                            <img className='w-full  hover:scale-110 transition-all duration-300' src={anime.animeImg} alt={anime.animeTitle}/>
-                        </div>
-
-                        {/* Title */}
-                        <div className='flex flex-col space-y-5'>
-                            <div className=''>
-                                <h2 className='text-4xl font-medium mb-3'>{anime.animeTitle} ( {anime.otherNames} )</h2>
-                                {anime.releasedDate==='0'?(
-                                    <strong className='text-xl'>Not released yet</strong>
-                                ):(
-                                    <strong className='text-xl'>Released Date : <span>{anime.releasedDate}</span></strong>
-                                )}
+                    <div className='flex space-x-5 card items-center lg:flex-row flex-col lg:space-y-0 space-y-5 justify-between'>
+                        <div className='flex lg:space-x-8 space-x-0 lg:flex-row flex-col'>
+                            {/* Thumbnail */}
+                            <div className='lg:w-64 overflow-hidden'>
+                                <img className='w-full  hover:scale-110 transition-all duration-300' src={anime.animeImg} alt={anime.animeTitle}/>
                             </div>
-                            <div className='flex space-x-5'>
-                                {anime.genres.map(
-                                    (genre)=>{
-                                        return(
-                                            <div key={genre} 
-                                                className="rounded-full px-2 py-1 text-center bg-blue-200 text-blue-600">
-                                                {genre}
-                                            </div>
+
+
+                            <div className='flex flex-col justify-between space-y-8 lg:w-1/2 w-full'>
+                            {/* Title */}
+                                <div>
+                                    <h2 className='lg:text-4xl text-3xl font-medium lg:my-0  my-4'>{anime.animeTitle}</h2>
+                                    {anime.otherNames!=="" &&
+                                        <em>{anime.otherNames}</em>
+                                    }
+                                </div>
+
+
+                                {/* Genre */}
+                                <div>
+                                    <h2 className='text-xl'>Genre : </h2>
+                                    <div className='grid lg:grid-cols-3 grid-cols-2 lg:gap-2 gap-3 lg:text-sm text-base'>
+                                        {anime.genres.map(
+                                            (genre)=>{
+                                                return(
+                                                    <div key={genre} 
+                                                        className="rounded-md px-5  text-center py-2 border border-slate-400 text-black">
+                                                        {genre}
+                                                    </div>
+                                                    )
+                                                }
+                                        )}
+                                    </div>
+                                </div>
+                                
+
+                                <table className='text-lg'>
+                                    <tr>
+                                        <th className='text-left pr-8'>Total Episode</th>
+                                        <td className='pr-3'>:</td>
+                                        <td>{anime.totalEpisodes}</td>
+                                    </tr>
+                                    <tr>
+                                        <th className='text-left'>Status</th>
+                                        <td>:</td>
+                                        <td>{anime.status}</td>
+                                    </tr>
+                                    <tr>
+                                        <th className='text-left'>Type</th>
+                                        <td>:</td>
+                                        <td>{anime.type}</td>
+                                    </tr>
+                                    <tr>
+                                        <th className='text-left'>Released Year</th>
+                                        <td>:</td>
+                                    {anime.releasedDate==='0'?(
+                                        <td className='text-xl'>Not released yet</td>
+                                        ):(
+                                        <td className='text-xl'>{anime.releasedDate}</td>
                                         )
                                     }
-                                )}
-                            </div>
-                            
-                            
-                            {anime.totalEpisodes!=='0' &&
-                                <div>
-                                    <strong className='text-xl'>Episode : <span>{anime.totalEpisodes}</span></strong>
-                                </div>
-                                }
-                            
-                            
-                            <div>
-                                <strong className='text-xl'>Status : <span>{anime.status}</span></strong>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
 
@@ -269,11 +292,11 @@ function DetailsAnime(props) {
                                 {loadingFavourite?(
                                     <p>Loading Favourite...</p>
                                 ):(
-                                    <div>
+                                    <div className='my-3'>
                                         {isFavourite?(
-                                            <button onClick={()=>CancelFavourite(idFavourite)}  className='px-4 py-2 border-blue-500 border-2 text-blue-500 w-full my-5'>Cancel Favourite</button>
+                                            <button onClick={()=>CancelFavourite(idFavourite)}  className='px-4 lg:py-2 py-4 text-xl lg:text-base rounded-lg font-semibold border-2 border-black text-black w-full my-5'>Cancel Favourite</button>
                                         ):(
-                                            <button onClick={()=>addFavourite(id)} className='px-4 py-2 bg-blue-500 text-white w-full my-5'>Add to Favourite</button>
+                                            <button onClick={()=>addFavourite(id)} className='px-4 lg:py-2 py-4 text-xl lg:text-base rounded-lg font-semibold bg-black text-white w-full'>Add to Favourite</button>
                                         )}
                                     </div>
 
@@ -281,84 +304,125 @@ function DetailsAnime(props) {
                             </div>
                         ):(
                             <div>
-                                <button onClick={SignInWithFirebaseGoogle} className='px-4 py-2 bg-blue-300 text-white w-full my-5 ' >Add Favourite (Login First)</button>
+                                <button onClick={SignInWithFirebaseGoogle} className='px-4 lg:py-2 py-4 text-xl lg:text-base rounded-lg font-semibold bg-gray-300 text-white w-full my-5 ' >Add Favourite (Login First)</button>
                             </div>
                         )}
 
                     </div>
 
                     {/* Description */}
-                    <div>
-                        <div className='my-5'>
-                            <h1 className='text-3xl mb-3 font-semibold'>Sinopsis</h1>
+                    <div className=''>
+                        <div className='card'>
+                            <h1 className='text-4xl font font-semibold mb-4'>Deskripsi</h1>
+                            <div className='line mb-8'></div>
                             <p>{anime.synopsis}</p>
                         </div>
-                        <div>
-                            {anime.episodesList.map(
-                                (episode)=>{
-                                    return (
-                                        <Link  key={episode.episodeId} to={`/stream/${episode.episodeId}`}>
-                                            <p 
-                                            className='mt-3 mb-5 border-b-2 border-slate-400 first-letter:uppercase text-xl' >
-                                                {episode.episodeId.replaceAll('-',' ')}
-                                            </p>
-                                        </Link>
-                                    )
-                                }
-                            )}
-                        </div>
+
+                        {anime.episodesList.length>0 &&
+                            <div className='card'>
+                                <h1 className='text-4xl font font-semibold mb-4'>Episode</h1>
+                                <div className='line mb-8'></div>
+                                <div className='grid lg:grid-cols-4 grid-cols-2 place-content-between gap-5'>
+                                    {anime.episodesList.map(
+                                        (episode)=>{
+                                            return(
+                                                    <Link key={episode.episodeId} to={`/stream/${episode.episodeId}`} 
+                                                    className='leading-10 border border-slate-400 px-4 py-2 rounded-md'>episode - {episode.episodeNum}</Link> 
+                                            )
+                                        }
+                                    )}
+                                </div>
+                            
+                                {/* {anime.episodesList.map(
+                                    (episode)=>{
+                                        return (
+                                            <Link  key={episode.episodeId} to={`/stream/${episode.episodeId}`}>
+                                                <p 
+                                                className='mt-3 mb-5 border-b-2 border-slate-400 first-letter:uppercase text-xl' >
+                                                    {episode.episodeId.replaceAll('-',' ')}
+                                                </p>
+                                            </Link>
+                                        )
+                                    }
+                                )} */}
+                            </div>
+                        }
                     </div>
 
 
 
                     {/* Komentar */}
-                    <div>
-                        <form onSubmit={addComment}>
-                            <input placeholder='text' 
-                            value={komentar} 
-                            onChange={(e)=>setKomentar(e.target.value)}/>
-                        </form>
-                    </div>
-                    
-
-                    <SimpleModalComp
-                    isShowModal={isShowSignIn}
-                    setShowModal={setShowSignIn}
-                    pesan="Harus login dulu, Sayang"
-                    ActionButton={SignInWithFirebaseGoogle}
-                    />
-
-                    {loadingKomentar?(
-                        <p>Loading komentar...</p>
-                    ):(
+                    <div className='card'>
+                        <h1 className='text-4xl font font-semibold mb-4'>Komentar</h1>
+                        <div className='line mb-8'></div>
+                        {userData?(
+                            <div className='flex space-x-5 items-start'>
+                                <img className='rounded-xl w-20' src={userData.photoURL} alt=''/>
+                                <div className='w-full flex flex-col space-y-3'>
+                                    <strong className='text-xl'>{userData.displayName}</strong>
+                                    <form onSubmit={addComment} className="flex flex-col space-y-5">
+                                        <textarea placeholder='Bagaimana menurutmu anime ini?' 
+                                        className='p-2 border border-slate-400 rounded-md focus:outline-0 focus:ring-2 focus:ring-slate-300 duration-300 transition-all'
+                                        value={komentar} 
+                                        rows='5'
+                                        onChange={(e)=>setKomentar(e.target.value)}>
+                                        </textarea>
+                                        <button  className='px-4 py-2 bg-black text-white rounded-lg w-52 ml-auto'>Tambah komentar</button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                        ):(
+                            <button onClick={()=>SignInWithFirebaseGoogle()} className='px-4 py-2 bg-black text-white rounded-lg'>Login dulu untuk menambahkan komentar</button>
+                        )}
+                        
+                        <div className='line mt-16'></div>
+                        
+                        {loadingKomentar?(
+                            <p>Loading komentar...</p>
+                            ):(
                         <div className='my-5'>
                             {listKomentar.length>0?(
-                                <ul>
+                                <div className='flex flex-col space-y-10'>
                                     {listKomentar.map(
                                         (komen)=>{
-                                            return( 
-                                                <li key={komen.id}>{komen.userName} - {komen.komentar}
-                                                {userData?(
-                                                    <div>
-                                                        {userData.uid===komen.idUser &&
-                                                            <span onClick={()=>hapusKomen(komen.id)}>Hapus</span>
-                                                        }
-                                                    </div>
-                                                ):(
-                                                    ""
-                                                )} 
-                                                </li>
+                                            return(
+                                                 <div key={komen.id} className="flex space-x-5 items-center justify-between">
+                                                     <div className='flex space-x-5 items-start'>
+                                                        <img alt='' src={komen.photoURL} className='rounded-xl' />
+                                                        <div>
+                                                            <strong>{komen.userName}</strong>
+                                                            <p>{komen.komentar}</p>
+                                                        </div>
+                                                     </div>
+                                                    {userData?(
+                                                        <div>
+                                                            {userData.uid===komen.idUser &&
+                                                                <button className='bg-red-700 text-white px-4 py-2 rounded-md' onClick={()=>hapusKomen(komen.id)}><i className='bx bxs-trash-alt'></i></button>
+                                                            }
+                                                        </div>
+                                                    ):(
+                                                        ""
+                                                    )} 
+                                                 </div>
                                             )
                                         }
                                     )}
-                                </ul>
+                                </div>
                             ):(
                                 <p>Komentar masih kosong</p>
                             )}
                         </div>
 
                     )}
-                </>
+
+
+                    </div>
+                    
+
+                    
+                    
+                </div>
             )}
            
         </div>

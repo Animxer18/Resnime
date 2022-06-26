@@ -30,7 +30,6 @@ function ContactAll(props) {
             setErrorEmail("")
         }else{
             setErrorEmail("Format email salah")
-            console.log("email  not aman awikwok")
         }
     }
 
@@ -46,7 +45,6 @@ function ContactAll(props) {
     const fetchUserData = ()=>{
         onAuthStateChanged(auth, user => {
             // Check for user status
-            console.log("user: ",user)
             if(user){ 
             setEmail(user.email)
               return setUserSignerdIn(true)
@@ -57,7 +55,6 @@ function ContactAll(props) {
 
     const addFeedback = async(e)=>{
         e.preventDefault();
-        console.log("hmmm")
         try{
             await addDoc(collection(db, "feedback-from-except"), {
                 email: email,
@@ -69,7 +66,6 @@ function ContactAll(props) {
               setShowFinishedFeedback(true)
         }
         catch(e){
-            console.log("error : ",e)
         }
         
     }

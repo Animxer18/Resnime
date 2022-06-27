@@ -9,9 +9,18 @@ function PopularAnimeComp() {
 
     //function fetch recent release anime
     const fetchDataRecent = async()=>{
-        let response = await axios.get("/popular")
-        setPopular(response.data)
-        setLoading(false)
+        await axios.get("/popular").then(
+            (response)=>{
+                console.log(response.data)
+                setPopular(response.data)
+                setLoading(false)
+            }
+        )
+        .catch(
+            (err)=>{
+                console.log("err :",err)
+            }
+        )
     }
     
    

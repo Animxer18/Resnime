@@ -9,9 +9,13 @@ function MoviesComp() {
 
     //function fetch movies release anime
     const fetchDataMovies = async()=>{
-        let response = await axios.get("/anime-movies")
-        setMovies(response.data)
-        setLoading(false)
+        await axios.get("/anime-movies")
+        .then(
+            (response)=>{
+                setMovies(response.data)
+                setLoading(false)
+            }
+        )
     }
     
    

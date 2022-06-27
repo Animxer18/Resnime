@@ -79,7 +79,7 @@ function ContactAll(props) {
         <>
          <div onClick={()=>setHiddenSuccessAlert(true)} className='px-4 text-center cursor-pointer pt-8 rounded-xl border 
             border-gray-400 hover:shadow-xl duration-300 transition-all'>
-                <img alt="icon-all" src='https://cdn-icons-png.flaticon.com/512/32/32441.png'/>
+                <img alt="icon-all" src='https://cdn-icons-png.flaticon.com/512/32/32441.png' className='w-48 mx-auto'/>
                 <h1 className='text-xl pt-8 pb-4 font-semibold'>Gak kenal aku sebelumnya</h1>
             </div>
             <FormFeedback 

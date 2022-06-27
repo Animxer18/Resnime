@@ -72,7 +72,7 @@ function Navbar() {
         setShowNavbar(cond)
     }
     
-    window.addEventListener("scroll",()=>{
+    document.addEventListener("scroll",()=>{
         let navbar = document.getElementById("navbar")
         let part = document.getElementById("part")
 

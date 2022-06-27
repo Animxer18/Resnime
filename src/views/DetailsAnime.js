@@ -220,8 +220,8 @@ function DetailsAnime(props) {
                 <div className='my-5'>
                     <BackButton />
 
-                    <div className='flex space-x-5 card items-center lg:flex-row flex-col lg:space-y-0 space-y-5 justify-between'>
-                        <div className='flex lg:space-x-8 space-x-0 lg:flex-row flex-col'>
+                    <div className='flex space-x-5  card items-center lg:flex-row flex-col lg:space-y-0 space-y-5 justify-between'>
+                        <div className='flex lg:space-x-8 md:w-full space-x-0 lg:flex-row flex-col'>
                             {/* Thumbnail */}
                             <div className='lg:w-64 overflow-hidden'>
                                 <img className='w-full  hover:scale-110 transition-all duration-300' src={anime.animeImg} alt={anime.animeTitle}/>
@@ -231,7 +231,7 @@ function DetailsAnime(props) {
                             <div className='flex flex-col justify-between space-y-8 lg:w-1/2 w-full'>
                             {/* Title */}
                                 <div>
-                                    <h2 className='lg:text-4xl text-3xl font-medium lg:my-0  my-4'>{anime.animeTitle}</h2>
+                                    <h2 className='lg:text-4xl text-3xl font-medium lg:my-0 md:text-4xl my-4'>{anime.animeTitle}</h2>
                                     {anime.otherNames!=="" &&
                                         <em>{anime.otherNames}</em>
                                     }
@@ -241,7 +241,7 @@ function DetailsAnime(props) {
                                 {/* Genre */}
                                 <div>
                                     <h2 className='text-xl'>Genre : </h2>
-                                    <div className='grid lg:grid-cols-3 grid-cols-2 lg:gap-2 gap-3 lg:text-sm text-base'>
+                                    <div className='grid lg:grid-cols-3 grid-cols-2 md:grid-cols-3 lg:gap-2 gap-3 lg:text-sm text-base'>
                                         {anime.genres.map(
                                             (genre)=>{
                                                 return(

@@ -228,7 +228,7 @@ function DetailsAnime(props) {
                             </div>
 
 
-                            <div className='flex flex-col justify-between space-y-8 lg:w-1/2 w-full'>
+                            <div className='flex flex-col justify-between space-y-8 lg:w-1/2   w-full'>
                             {/* Title */}
                                 <div>
                                     <h2 className='lg:text-4xl text-3xl hp:text-2xl font-medium lg:my-0 md:text-4xl my-4'>{anime.animeTitle}</h2>
@@ -314,11 +314,13 @@ function DetailsAnime(props) {
 
                     {/* Description */}
                     <div className=''>
-                        <div className='card'>
-                            <h1 className='text-4xl font font-semibold mb-4 hp:text-2xl'>Deskripsi</h1>
-                            <div className='line mb-8'></div>
-                            <p className='hp:text-sm text-xl'>{anime.synopsis}</p>
-                        </div>
+                        {anime.synopsis &&
+                            <div className='card'>
+                                <h1 className='font font-semibold mb-4 sm:text-4xl hp:text-2xl'>Deskripsi</h1>
+                                <div className='line mb-8'></div>
+                                <p className='hp:text-sm text-sm sm:text-lg'>{anime.synopsis}</p>
+                            </div>
+                        }
 
                         {anime.episodesList.length>0 &&
                             <div className='card'>
@@ -334,19 +336,6 @@ function DetailsAnime(props) {
                                         }
                                     )}
                                 </div>
-                            
-                                {/* {anime.episodesList.map(
-                                    (episode)=>{
-                                        return (
-                                            <Link  key={episode.episodeId} to={`/stream/${episode.episodeId}`}>
-                                                <p 
-                                                className='mt-3 mb-5 border-b-2 border-slate-400 first-letter:uppercase text-xl' >
-                                                    {episode.episodeId.replaceAll('-',' ')}
-                                                </p>
-                                            </Link>
-                                        )
-                                    }
-                                )} */}
                             </div>
                         }
                     </div>
@@ -355,7 +344,7 @@ function DetailsAnime(props) {
 
                     {/* Komentar */}
                     <div className='card'>
-                        <h1 className='text-4xl font font-semibold mb-4'>Komentar</h1>
+                        <h1 className='hp:text-2xl sm:text-4xl font font-semibold mb-4'>Komentar</h1>
                         <div className='line mb-8'></div>
                         {userData?(
                             <div className='flex flex-col space-y-5 items-start'>

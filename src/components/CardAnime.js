@@ -15,8 +15,8 @@ function CardAnime(anime) {
         <>
             <div onClick={()=>detailAnimeLink(anime.id)} >
                 <div className=''>
-                    <div className='group w-44 hp:w-28 mx-auto overflow-hidden bg-slate-400'>
-                        <img className='w-full   hover:scale-110 transition-all duration-300 opacity-70 group-hover:opacity-100' src={anime.thumbnail} alt={anime.titleAnime}/>
+                    <div className='group lg:w-48 sm:w-44 hp:w-28 mx-auto overflow-hidden bg-slate-400'>
+                        <img className='w-full hover:scale-110 transition-all duration-300 opacity-70 group-hover:opacity-100' src={anime.thumbnail} alt={anime.titleAnime}/>
                     </div>
 
                 </div>

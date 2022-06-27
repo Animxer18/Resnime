@@ -65,7 +65,7 @@ function StreamAnime(props) {
                                     <i className={`bx bxs-chevron-down ${hiddenHint?"":"bx-rotate-180"} transition-all duration-300`}></i>
                                 </div>
                                 
-                                <div className={`overflow-hidden ${hiddenHint?"h-0":"lg:h-40 hp:h-56 hp:text-left h-44"} px-8 flex flex-col space-y-5 duration-300 transition-all`}>
+                                <div className={`overflow-hidden ${hiddenHint?"h-0":"lg:h-40 hp:h-56 hp:bg-blue-600 bg-red-500 hp:text-left h-44"} px-8 flex flex-col space-y-5 duration-300 transition-all`}>
                                     <ul className='marker:text-gray-500 list-disc text-left my-4'>
                                         <li>Nonton di PC/Laptop</li>
                                         <li>Refresh / buka ulang websitenya</li>

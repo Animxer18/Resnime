@@ -8,7 +8,7 @@ function Favourites(props) {
                 <BackButton />
             </div>
             <div className=' card'>
-                <h1 className='text-4xl font font-semibold mb-4 hp:text-2xl'>Favourites</h1>
+                <h1 className='text-4xl font font-semibold mb-4 hp:text-2xl sm:text-3xl'>Favourites</h1>
                 <div className='line'></div>
                 <FavouritesComp />
             </div>

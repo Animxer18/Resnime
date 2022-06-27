@@ -96,11 +96,11 @@ function CommentsComp(props) {
                                                                 <img alt='' src={comm.animeImg} className="w-24 group-hover:scale-110 duration-300 transition-all"/>
                                                             </div>
                                                             <div className='flex flex-col'>
-                                                                <h3 className='lg:text-3xl hp:text-base line-clamp-2 text-2xl font-semibold first-letter:uppercase'>{comm.namaAnime.replaceAll("-"," ")}</h3>
+                                                                <h3 className='lg:text-3xl hp:text-base sm:text-2xl line-clamp-2 font-semibold first-letter:uppercase'>{comm.namaAnime.replaceAll("-"," ")}</h3>
                                                                 <q className='italic'>{comm.komentar}</q>
                                                             </div>
                                                     </div>
-                                                    <button className='bg-red-700 text-white hp:px-2 hp:py-1 px-4 py-2 rounded-md' onClick={()=>hapusKomen(comm.id)}><i className='bx bxs-trash-alt'></i></button>
+                                                    <button className='bg-red-700 text-white hp:px-2 hp:py-1 sm:px-4 sm:py-2 rounded-md' onClick={()=>hapusKomen(comm.id)}><i className='bx bxs-trash-alt'></i></button>
                                                 </div>
                                             )
                                         }

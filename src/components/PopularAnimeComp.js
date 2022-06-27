@@ -11,7 +11,7 @@ function PopularAnimeComp() {
     const fetchDataRecent = async()=>{
         await axios.get("/popular").then(
             (response)=>{
-                console.log(response.data)
+                console.log("ahhh idk anymore : ",response.data)
                 setPopular(response.data)
                 setLoading(false)
             }

@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react';
+import React, {  useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useNavigate} from 'react-router-dom';
 import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut} from 'firebase/auth'
 import { app } from '../components/Firebase/firebase';
@@ -72,25 +72,34 @@ function Navbar() {
         setShowNavbar(cond)
     }
     
-    document.addEventListener("scroll",()=>{
-        let navbar = document.getElementById("navbar")
-        let part = document.getElementById("part")
-
-
-        
-        part.classList.toggle("bg-black",window.scrollY>20)
-
-        navbar.classList.toggle("bg-black",window.scrollY>20)
-        navbar.classList.toggle("shadow-card-shadow",window.scrollY>20)
-        navbar.classList.toggle("text-white",window.scrollY>20)
-        let btn_login = document.getElementById("btn-login")
-        
-        if(isUserSignedIn){
-        }else{
-            btn_login.classList.toggle("bg-white",window.scrollY>20)
-            btn_login.classList.toggle("text-black",window.scrollY>20)    
-
+    let navbar = useRef()
+    let part = useRef()
+    let btnGoogle = useRef()
+    window.addEventListener("scroll",()=>{
+        if(navbar.current){
+            navbar.current.classList.toggle("bg-black",window.scrollY>20)
+            navbar.current.classList.toggle("shadow-card-shadow",window.scrollY>20)
+            navbar.current.classList.toggle("text-white",window.scrollY>20)
+            if(part.current){
+                part.current.classList.toggle("bg-black",window.scrollY>20)
+            }
+            if(btnGoogle.current){
+                    btnGoogle.current.classList.toggle("bg-white",window.scrollY>20)
+                    btnGoogle.current.classList.toggle("text-black",window.scrollY>20)
+            }
         }
+
+        // navbar.classList.toggle("bg-black",window.scrollY>20)
+        // navbar.classList.toggle("shadow-card-shadow",window.scrollY>20)
+        // navbar.classList.toggle("text-white",window.scrollY>20)
+        // let btn_login = document.getElementById("btn-login")
+        
+        // if(isUserSignedIn){
+        // }else{
+        //     btn_login.classList.toggle("bg-white",window.scrollY>20)
+        //     btn_login.classList.toggle("text-black",window.scrollY>20)    
+
+        // }
         
     })
 
@@ -103,10 +112,9 @@ function Navbar() {
         }
     }
 
-
     return (
         <>
-            <div id='navbar' className='duration-300 transition-all w-full sticky top-0 z-10'>
+            <div id='navbar' ref={navbar} className='duration-300 transition-all w-full sticky top-0 z-10'>
                 <div className='container flex flex-col lg:flex-row  justify-between mx-auto'>
 
 
@@ -127,7 +135,7 @@ function Navbar() {
                     <div className=''>
                         
                         
-                        <div id='part' className={`lg:flex lg:space-x-16 items-center space-y-5 lg:space-y-0 lg:rounded-none lg:h-full  rounded-bl-xl   ${showNavbar?  (showInfoAcc?" h-[520px]":"h-[340px]") :"h-0"}  overflow-hidden duration-300 transition-all lg:py-0 lg:px-0 px-5`}>
+                        <div id='part' ref={part} className={`lg:flex lg:space-x-16 items-center space-y-5 lg:space-y-0 lg:rounded-none lg:h-full  rounded-bl-xl   ${showNavbar?  (showInfoAcc?" h-[520px]":"h-[340px]") :"h-0"}  overflow-hidden duration-300 transition-all lg:py-0 lg:px-0 px-5`}>
                             <div className='lg:flex lg:space-x-5'>
                                 <div onClick={()=>moveTo('popular')} className=' py-5 cursor-pointer font-semibold'>Popular</div>
                                 <div onClick={()=>moveTo('top_airing')} className='py-5 cursor-pointer font-semibold'>Top Airing</div>
@@ -157,7 +165,7 @@ function Navbar() {
                                         </div>
                                     </div>
                                 ):(
-                                    <div id='btn-login' onClick={SignInWithFirebaseGoogle} className={`${!userInfo && "hidden"}cursor-pointer flex items-center text-xl font-semibold lg:text-base space-x-4 px-4 lg:py-2 py-4 rounded-lg bg-black text-white`}>
+                                    <div id='btn-login' ref={btnGoogle} onClick={SignInWithFirebaseGoogle} className={`${!userInfo && "hidden"}cursor-pointer flex items-center text-xl font-semibold lg:text-base space-x-4 px-4 lg:py-2 py-4 rounded-lg bg-black text-white`}>
                                             <i className='bx bxl-google bx-sm'></i> 
                                             <p>Login with google</p> 
                                     </div>
@@ -173,7 +181,7 @@ function Navbar() {
 
                 </div>
             </div>
-            <div className='container mx-auto'>
+            <div className='container mx-auto' >
                 <Outlet context={
                         {
                             searchFin,isUserSignedIn

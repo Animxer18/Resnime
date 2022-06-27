@@ -90,7 +90,7 @@ function CommentsComp(props) {
                                     {listComments.map(
                                         (comm)=>{
                                             return(
-                                                <div className='flex justify-between items-center'>
+                                                <div key={comm.id} className='flex justify-between items-center'>
                                                     <div onClick={()=>detailAnimeLink(comm.namaAnime)} className="flex space-x-5 cursor-pointer" key={comm.id}>
                                                             <div className='overflow-hidden group'>
                                                                 <img alt='' src={comm.animeImg} className="w-24 group-hover:scale-110 duration-300 transition-all"/>

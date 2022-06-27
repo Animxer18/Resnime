@@ -5,7 +5,7 @@ import Loading from './Loading';
 
 function PopularAnimeComp() {
     let [popular,setPopular] = useState([])
-    let [loading,setLoading] = useState([])
+    let [loading,setLoading] = useState(true)
 
     //function fetch recent release anime
     const fetchDataRecent = async()=>{

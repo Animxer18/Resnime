@@ -44,8 +44,7 @@ function Navbar() {
                 const credential = GoogleAuthProvider.credentialFromResult(res);
                 const token = credential.accessToken;
                 console.log(token)
-                // navigate("/")
-                window.location.href="/"
+                navigate("/")
             }
         )
 
@@ -89,17 +88,7 @@ function Navbar() {
             }
         }
 
-        // navbar.classList.toggle("bg-black",window.scrollY>20)
-        // navbar.classList.toggle("shadow-card-shadow",window.scrollY>20)
-        // navbar.classList.toggle("text-white",window.scrollY>20)
-        // let btn_login = document.getElementById("btn-login")
-        
-        // if(isUserSignedIn){
-        // }else{
-        //     btn_login.classList.toggle("bg-white",window.scrollY>20)
-        //     btn_login.classList.toggle("text-black",window.scrollY>20)    
-
-        // }
+      
         
     })
 
@@ -165,9 +154,11 @@ function Navbar() {
                                         </div>
                                     </div>
                                 ):(
-                                    <div id='btn-login' ref={btnGoogle} onClick={SignInWithFirebaseGoogle} className={`${!userInfo && "hidden"}cursor-pointer flex items-center text-xl font-semibold lg:text-base space-x-4 px-4 lg:py-2 py-4 rounded-lg bg-black text-white`}>
+                                    <div id='btn-login'  onClick={SignInWithFirebaseGoogle} className={`${!userInfo && "hidden"}cursor-pointer `}>
+                                        <div ref={btnGoogle} className='cursor-pointer flex items-center text-xl font-semibold lg:text-base space-x-4 px-4 lg:py-2 py-4 rounded-lg bg-black text-white'>
                                             <i className='bx bxl-google bx-sm'></i> 
                                             <p>Login with google</p> 
+                                        </div>
                                     </div>
                                 )}
                             </div>

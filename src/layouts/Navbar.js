@@ -127,7 +127,7 @@ function Navbar() {
                     <div className=''>
                         
                         
-                        <div id='part' className={`lg:flex lg:space-x-16 items-center space-y-5 lg:space-y-0 lg:rounded-none lg:h-full  rounded-bl-xl   ${showNavbar?  (showInfoAcc?"h-[520px]":"h-[340px]") :"h-0"}  overflow-hidden duration-300 transition-all lg:py-0 lg:px-0 px-5`}>
+                        <div id='part' className={`lg:flex lg:space-x-16 items-center space-y-5 lg:space-y-0 lg:rounded-none lg:h-full  rounded-bl-xl   ${showNavbar?  (showInfoAcc?" h-[520px]":"h-[340px]") :"h-0"}  overflow-hidden duration-300 transition-all lg:py-0 lg:px-0 px-5`}>
                             <div className='lg:flex lg:space-x-5'>
                                 <div onClick={()=>moveTo('popular')} className=' py-5 cursor-pointer font-semibold'>Popular</div>
                                 <div onClick={()=>moveTo('top_airing')} className='py-5 cursor-pointer font-semibold'>Top Airing</div>
@@ -141,7 +141,7 @@ function Navbar() {
                                             <p>{userInfo.displayName}</p>
                                             <i className={`bx bx-chevron-down ${showInfoAcc?"bx-rotate-180":""} duration-300 transition-all`}></i>
                                         </div>
-                                        <div className={`${showInfoAcc?"lg:h-32 h-44":"h-0"} bg-white rounded-lg lg:absolute lg:top-16 lg:w-44 lg:my-0 my-2  duration-300 transition-all  overflow-hidden `}>
+                                        <div className={`${showInfoAcc?"lg:h-[134px] h-44":"h-0"} bg-white rounded-lg lg:absolute lg:top-16 lg:w-44 lg:my-0 my-2  duration-300 transition-all  overflow-hidden `}>
                                             <div onClick={()=>moveTo("favourites")} className=" text-center hover:bg-black transition-all duration-300 cursor-pointer  hover:text-white flex items-center border border-black text-black font-semibold lg:text-base space-x-4 px-4 lg:py-2 py-4">
                                                 <i className='bx bx-star bx-sm'></i>
                                                 <p>Favourites</p>
@@ -150,7 +150,7 @@ function Navbar() {
                                                 <i className='bx bx-message-square-dots bx-sm'></i>
                                                 <p>Komentar</p>
                                             </div>
-                                            <div onClick={SignOut} className="text-center hover:bg-black transition-all duration-300 cursor-pointer  hover:text-white flex items-center border border-black text-black font-semibold lg:text-base space-x-4 px-4 lg:py-2 py-4">
+                                            <div onClick={SignOut} className="text-center hover:bg-black transition-all duration-300 cursor-pointer rounded-b-xl hover:text-white flex items-center border border-black text-black font-semibold lg:text-base space-x-4 px-4 lg:py-2 py-4">
                                                 <i className='bx bx-log-out bx-sm' ></i>
                                                 <p>Logout</p>
                                             </div>

@@ -104,6 +104,7 @@ function ContactRL(props) {
     return (
         <>
             <ContactComp 
+            imgContact="https://i.pinimg.com/originals/ae/7f/f9/ae7ff98ff0e808ff7d241733ad84a43a.png"
             setHidden={setHidden}
             hidden={hidden}
             From="RL"

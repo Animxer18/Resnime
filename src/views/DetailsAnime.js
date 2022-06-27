@@ -257,11 +257,13 @@ function DetailsAnime(props) {
                                 
 
                                 <table className='text-lg'>
-                                    <tr>
-                                        <th className='text-left pr-8'>Total Episode</th>
-                                        <td className='pr-3'>:</td>
-                                        <td>{anime.totalEpisodes}</td>
-                                    </tr>
+                                    {anime.totalEpisodes>0 &&
+                                        <tr>
+                                            <th className='text-left pr-8'>Total Episode</th>
+                                            <td className='pr-3'>:</td>
+                                                <td>{anime.totalEpisodes}</td>
+                                        </tr>
+                                    }
                                     <tr>
                                         <th className='text-left'>Status</th>
                                         <td>:</td>

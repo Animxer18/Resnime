@@ -3,10 +3,10 @@ import React from 'react';
 function ContactComp(props) {
     return (
         <div>
-            <div onClick={()=>props.setHidden(true)} className='px-4 text-center cursor-pointer py-8 rounded-xl border 
+            <div onClick={()=>props.setHidden(true)} className='px-4 text-center cursor-pointer pt-8 rounded-xl border 
             border-gray-400 hover:shadow-xl duration-300 transition-all'>
-                <h1>{props.From}</h1>
-                <h1>Kenalan di {props.From}</h1>
+                <img src={props.imgContact} alt='' className='w-48 mx-auto'/>
+                <h1 className='text-xl pt-8 pb-4 font-semibold'>Kenalan di {props.From}</h1>
             </div>
 
             <div className={`modal ${props.hidden && "scale-100"}`}>

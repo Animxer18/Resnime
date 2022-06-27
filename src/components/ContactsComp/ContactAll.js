@@ -7,7 +7,6 @@ import FormFeedback from '../FormFeedback';
 
 function ContactAll(props) {
     let [hiddenSuccessAlert,setHiddenSuccessAlert] = useState(false)
-    let [hidden,setHidden] = useState(false)
     
 
   
@@ -78,10 +77,10 @@ function ContactAll(props) {
     
     return (
         <>
-         <div onClick={()=>setHiddenSuccessAlert(true)} className='px-4 text-center cursor-pointer py-8 rounded-xl border 
+         <div onClick={()=>setHiddenSuccessAlert(true)} className='px-4 text-center cursor-pointer pt-8 rounded-xl border 
             border-gray-400 hover:shadow-xl duration-300 transition-all'>
-                <h1>ICON All</h1>
-                <h1>Gak kenal aku sebelumnya</h1>
+                <img alt="icon-all" src='https://cdn-icons-png.flaticon.com/512/32/32441.png'/>
+                <h1 className='text-xl pt-8 pb-4 font-semibold'>Gak kenal aku sebelumnya</h1>
             </div>
             <FormFeedback 
             hiddenSuccessAlert={hiddenSuccessAlert}

@@ -102,6 +102,7 @@ function ContactReality(props) {
     return (
         <>
             <ContactComp 
+            imgContact="https://play-lh.googleusercontent.com/heTDX-gYr56XWwd0EnblfLqQWnvvPuezsm8u33gcaCUEum4oMDoJAbDnrqK0qXhWxF0"
             setHidden={setHidden}
             hidden={hidden}
             From="Reality"

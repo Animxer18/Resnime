@@ -11,29 +11,21 @@ function CardAnime(anime) {
         navigate(`/anime/${id}`)
     }
 
-    
-
-   
-
-
-   
-
-   
     return (
         <>
             <div onClick={()=>detailAnimeLink(anime.id)} >
                 <div className=''>
-                    <div className='group w-44 mx-auto overflow-hidden bg-slate-400'>
-                        <img className='w-full  hover:scale-110 transition-all duration-300 opacity-70 group-hover:opacity-100' src={anime.thumbnail} alt={anime.titleAnime}/>
+                    <div className='group w-44 hp:w-28 mx-auto overflow-hidden bg-slate-400'>
+                        <img className='w-full   hover:scale-110 transition-all duration-300 opacity-70 group-hover:opacity-100' src={anime.thumbnail} alt={anime.titleAnime}/>
                     </div>
 
                 </div>
-                <h2 className='text-xl line-clamp-2'>{anime.titleAnime}</h2>
+                <h2 className='text-xl hp:text-lg line-clamp-2'>{anime.titleAnime}</h2>
                     {anime.episode ?
-                    (<p>{anime.episode} </p>):
+                    (<p className='hp:text-sm'>{anime.episode} </p>):
                     ("")} 
                     {anime.release ?
-                    (<p>Released : {anime.release}</p>):
+                    (<p className='hp:text-sm'>Released : {anime.release}</p>):
                     ("")} 
             </div>
             

@@ -24,7 +24,7 @@ code {
   @apply bg-white px-4  py-8 rounded-xl relative transition-all duration-300 scale-0
   }
   .card{
-    @apply shadow-card-shadow px-5 py-8 my-10 rounded-lg
+    @apply shadow-card-shadow px-5 py-8 my-10 rounded-lg hp:my-5
   }
   .line{
     @apply border-b border-slate-300 mb-10

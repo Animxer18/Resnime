@@ -8,7 +8,7 @@ function TopAiring(props) {
                 <BackButton />
             </div>
             <div className='card'>
-                <h1 className='text-4xl font font-semibold mb-4'>Top Airing</h1>
+                <h1 className='text-4xl font font-semibold mb-4 hp:text-2xl'>Top Airing</h1>
                 <div className='line'></div>
                 <TopAiringComp />
             </div>

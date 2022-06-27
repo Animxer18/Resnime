@@ -19,7 +19,7 @@ function SearchResult(props) {
 
     const fetchSearchResult = async()=>{
         setLoading(true)
-        await axios.get(`/search?keyw=${searchFin}`)
+        await axios.get(`https://raznime.herokuapp.com/search?keyw=${searchFin}`)
         .then(
             (res)=>{
                 setResult(res.data)

@@ -13,7 +13,7 @@ function StreamAnime(props) {
     let navigate = useNavigate()
 
     let linkStream = async()=>{
-        await axios.get(`/stream/watch/${episode}`)
+        await axios.get(`https://raznime.herokuapp.com/stream/watch/${episode}`)
         .then(
             (response)=>{
                 if(response.data.hasOwnProperty("error")){

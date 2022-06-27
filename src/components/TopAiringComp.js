@@ -9,7 +9,7 @@ function TopAiringComp() {
 
     //function fetch TopAiring release anime
     const fetchDataTopAiring = async()=>{
-        let response = await axios.get("/top-airing")
+        let response = await axios.get("https://raznime.herokuapp.com/top-airing")
         setTopAiring(response.data)
         setLoading(false)
     }

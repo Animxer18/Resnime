@@ -59,13 +59,13 @@ function StreamAnime(props) {
                             <div>
                                 <div className='flex space-x-5 items-center px-5 cursor-pointer ' onClick={()=>openHint()}>
                                     <i className="fa-solid fa-circle-exclamation text-gray-600"></i>
-                                    <p className='font-medium text-gray-800'>
+                                    <p className='font-medium text-gray-800 hp:text-left'>
                                         Hal yang dilakukan kalau tidak bisa memutar video 
                                     </p> 
                                     <i className={`bx bxs-chevron-down ${hiddenHint?"":"bx-rotate-180"} transition-all duration-300`}></i>
                                 </div>
                                 
-                                <div className={`overflow-hidden ${hiddenHint?"h-0":"lg:h-40 h-44"} px-8 flex flex-col space-y-5 duration-300 transition-all`}>
+                                <div className={`overflow-hidden ${hiddenHint?"h-0":"lg:h-40 hp:h-56 hp:bg-blue-600 bg-red-500 hp:text-left h-44"} px-8 flex flex-col space-y-5 duration-300 transition-all`}>
                                     <ul className='marker:text-gray-500 list-disc text-left my-4'>
                                         <li>Nonton di PC/Laptop</li>
                                         <li>Refresh / buka ulang websitenya</li>
@@ -76,7 +76,7 @@ function StreamAnime(props) {
                             </div>
                         </div>
                     </div>
-                    <iframe  src={video.Referer} allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" title='video' loading="lazy" className='w-11/12 h-[640px] mx-auto ' ></iframe>
+                    <iframe  src={video.Referer} allowFullscreen="true" webkitallowFullscreen="true" mozallowFullscreen="true" title='video' loading="lazy" className='w-11/12 h-[640px] mx-auto ' ></iframe>
                 </div>
                  
             )}

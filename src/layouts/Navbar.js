@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate} from 'react-router-dom';
 import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut} from 'firebase/auth'
 import { app } from '../components/Firebase/firebase';
 import '../custom.css'
+import Trakteer from '../components/Trakteer';
 function Navbar() {
     const [search,setSearch] = useState("")
     const [searchFin,setSearchFin] = useState("")
@@ -103,7 +104,7 @@ function Navbar() {
 
     return (
         <>
-            <div id='navbar' ref={navbar} className='duration-300 transition-all w-full sticky top-0 z-10'>
+            <div id='navbar' ref={navbar} className='duration-300 hp:px-5   transition-all w-full sticky top-0 z-10'>
                 <div className='container flex flex-col lg:flex-row  justify-between mx-auto'>
 
 
@@ -138,7 +139,7 @@ function Navbar() {
                                             <p>{userInfo.displayName}</p>
                                             <i className={`bx bx-chevron-down ${showInfoAcc?"bx-rotate-180":""} duration-300 transition-all`}></i>
                                         </div>
-                                        <div className={`${showInfoAcc?"lg:h-[134px] h-44":"h-0"} bg-white rounded-lg lg:absolute lg:top-16 lg:w-44 lg:my-0 my-2  duration-300 transition-all  overflow-hidden `}>
+                                        <div className={`${showInfoAcc?"lg:h-[134px] h-44":"h-0"} bg-white  lg:absolute lg:top-20 lg:w-44 lg:my-0 my-2  duration-300 transition-all  overflow-hidden `}>
                                             <div onClick={()=>moveTo("favourites")} className=" text-center hover:bg-black transition-all duration-300 cursor-pointer  hover:text-white flex items-center border border-black text-black font-semibold lg:text-base space-x-4 px-4 lg:py-2 py-4">
                                                 <i className='bx bx-star bx-sm'></i>
                                                 <p>Favourites</p>
@@ -178,6 +179,9 @@ function Navbar() {
                             searchFin,isUserSignedIn
                         }
                         }/>
+            </div>
+            <div className='fixed sm:bottom-10 sm:right-10 hp:bottom-4 hp:right-4'>
+                <Trakteer />
             </div>
 
         </>

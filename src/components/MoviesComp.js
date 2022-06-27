@@ -31,7 +31,7 @@ function MoviesComp() {
             {loading ?(
                 <Loading />
             ):(
-            <div className='grid grid-cols-2 lg:grid-cols-5 gap-x-5 gap-y-10'>
+            <div className='grid grid-cols-2 lg:grid-cols-5 sm:grid-cols-3 gap-x-5 gap-y-10'>
                 {movies.map(
                     (mov)=>{
                         return (

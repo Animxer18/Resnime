@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import CommentsComp from '../components/CommentsComp'
 function Comments(props) {
@@ -9,7 +8,7 @@ function Comments(props) {
                 <BackButton />
             </div>
             <div className=' card'>
-                <h1 className='text-4xl font font-semibold mb-4'>Komentar</h1>
+                <h1 className='text-4xl font font-semibold mb-4 hp:text-2xl'>Komentar</h1>
                 <div className='line'></div>
                 <CommentsComp />
             </div>

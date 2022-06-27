@@ -9,20 +9,20 @@ function HomeView(props) {
         <div className='container mx-auto px-5 flex flex-col space-y-10'>
 
             <div className='card' id='popular'>
-                <h1 className='text-4xl font font-semibold mb-4'>Popular Anime</h1>
+                <h1 className='text-4xl hp:text-2xl font font-semibold mb-4'>Popular Anime</h1>
                 <div className='line'></div>
                 <PopularAnimeComp />
             </div>
             
             <div className='card'  id='top_airing'>
-                <h1 className='text-4xl font font-semibold mb-4'>Top Airing</h1>
+                <h1 className='text-4xl hp:text-2xl font font-semibold mb-4'>Top Airing</h1>
                 <div className='line'></div>
                 <TopAiringComp />
                 
             </div>
             
             <div className='card' id='movies'>
-                <h1 className='text-4xl font font-semibold mb-10'>Anime Movies</h1>
+                <h1 className='text-4xl hp:text-2xl font font-semibold mb-10'>Anime Movies</h1>
                 <div className='line'></div>
                 <MoviesComp />
             </div>

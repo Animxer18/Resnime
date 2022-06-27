@@ -103,7 +103,7 @@ function Navbar() {
 
     return (
         <>
-            <div id='navbar' ref={navbar} className='duration-300 transition-all w-full sticky top-0 z-10'>
+            <div id='navbar' ref={navbar} className='duration-300 hp:px-5   transition-all w-full sticky top-0 z-10'>
                 <div className='container flex flex-col lg:flex-row  justify-between mx-auto'>
 
 

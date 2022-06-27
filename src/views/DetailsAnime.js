@@ -231,9 +231,9 @@ function DetailsAnime(props) {
                             <div className='flex flex-col justify-between space-y-8 lg:w-1/2 w-full'>
                             {/* Title */}
                                 <div>
-                                    <h2 className='lg:text-4xl text-3xl font-medium lg:my-0 md:text-4xl my-4'>{anime.animeTitle}</h2>
+                                    <h2 className='lg:text-4xl text-3xl hp:text-2xl font-medium lg:my-0 md:text-4xl my-4'>{anime.animeTitle}</h2>
                                     {anime.otherNames!=="" &&
-                                        <em>{anime.otherNames}</em>
+                                        <em className='hp:text-sm text-base'>{anime.otherNames}</em>
                                     }
                                 </div>
 
@@ -259,7 +259,7 @@ function DetailsAnime(props) {
                                 <table className='text-lg'>
                                     {anime.totalEpisodes>0 &&
                                         <tr>
-                                            <th className='text-left pr-8'>Total Episode</th>
+                                            <th className='text-left pr-8 text-base'>Total Episode</th>
                                             <td className='pr-3'>:</td>
                                                 <td>{anime.totalEpisodes}</td>
                                         </tr>
@@ -315,14 +315,14 @@ function DetailsAnime(props) {
                     {/* Description */}
                     <div className=''>
                         <div className='card'>
-                            <h1 className='text-4xl font font-semibold mb-4'>Deskripsi</h1>
+                            <h1 className='text-4xl font font-semibold mb-4 hp:text-2xl'>Deskripsi</h1>
                             <div className='line mb-8'></div>
-                            <p>{anime.synopsis}</p>
+                            <p className='hp:text-sm text-xl'>{anime.synopsis}</p>
                         </div>
 
                         {anime.episodesList.length>0 &&
                             <div className='card'>
-                                <h1 className='text-4xl font font-semibold mb-4'>Episode</h1>
+                                <h1 className='text-4xl font font-semibold mb-4 hp:text-2xl'>Episode</h1>
                                 <div className='line mb-8'></div>
                                 <div className='grid lg:grid-cols-4 grid-cols-2 place-content-between gap-5'>
                                     {anime.episodesList.map(
@@ -358,20 +358,22 @@ function DetailsAnime(props) {
                         <h1 className='text-4xl font font-semibold mb-4'>Komentar</h1>
                         <div className='line mb-8'></div>
                         {userData?(
-                            <div className='flex space-x-5 items-start'>
-                                <img className='rounded-xl w-20' src={userData.photoURL} alt=''/>
-                                <div className='w-full flex flex-col space-y-3'>
-                                    <strong className='text-xl'>{userData.displayName}</strong>
-                                    <form onSubmit={addComment} className="flex flex-col space-y-5">
-                                        <textarea placeholder='Bagaimana menurutmu anime ini?' 
+                            <div className='flex flex-col space-y-5 items-start'>
+                                <div className='flex items-center space-x-8'>
+                                    <img className='rounded-xl w-20' src={userData.photoURL} alt=''/>
+                                    <div className='w-full flex flex-col space-y-3'>
+                                        <strong className='text-xl hp:text-lg'>{userData.displayName}</strong>
+                                    </div>
+                                </div>
+                                <form onSubmit={addComment} className="flex flex-col space-y-5 w-full">
+                                    <textarea placeholder='Bagaimana menurutmu anime ini?' 
                                         className='p-2 border border-slate-400 rounded-md focus:outline-0 focus:ring-2 focus:ring-slate-300 duration-300 transition-all'
                                         value={komentar} 
                                         rows='5'
                                         onChange={(e)=>setKomentar(e.target.value)}>
-                                        </textarea>
-                                        <button  className='px-4 py-2 bg-black text-white rounded-lg w-52 ml-auto'>Tambah komentar</button>
-                                    </form>
-                                </div>
+                                    </textarea>
+                                    <button  className='px-4 lg:py-2 py-3 font-semibold bg-black text-white rounded-lg  lg:w-52 w-full ml-auto'>Tambah komentar</button>
+                                </form>
                             </div>
                             
                         ):(

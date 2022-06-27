@@ -9,7 +9,7 @@ function Movies(props) {
                 <BackButton />
             </div>
             <div className='card'>
-                <h1 className='text-4xl font font-semibold mb-4'>Movies</h1>
+                <h1 className='text-4xl font font-semibold mb-4 hp:text-2xl'>Movies</h1>
                 <div className='line'></div>
                 <MoviesComp />   
             </div>

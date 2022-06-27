@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate} from 'react-router-dom';
 import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut} from 'firebase/auth'
 import { app } from '../components/Firebase/firebase';
 import '../custom.css'
+import Trakteer from '../components/Trakteer';
 function Navbar() {
     const [search,setSearch] = useState("")
     const [searchFin,setSearchFin] = useState("")
@@ -178,6 +179,9 @@ function Navbar() {
                             searchFin,isUserSignedIn
                         }
                         }/>
+            </div>
+            <div className='fixed sm:bottom-10 sm:right-10 hp:bottom-4 hp:right-4'>
+                <Trakteer />
             </div>
 
         </>

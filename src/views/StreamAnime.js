@@ -76,7 +76,7 @@ function StreamAnime(props) {
                             </div>
                         </div>
                     </div>
-                    <iframe  src={video.Referer} allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" title='video' loading="lazy" className='w-11/12 h-[640px] mx-auto ' ></iframe>
+                    <iframe  src={video.Referer} allowFullscreen="true" webkitallowFullscreen="true" mozallowFullscreen="true" title='video' loading="lazy" className='w-11/12 h-[640px] mx-auto ' ></iframe>
                 </div>
                  
             )}

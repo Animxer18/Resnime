@@ -11,7 +11,6 @@ function PopularAnimeComp() {
     const fetchDataRecent = async()=>{
         await axios.get("https://raznime.herokuapp.com/popular").then(
             (response)=>{
-                console.log("ahhh idk anymore : ",response.data)
                 setPopular(response.data)
                 setLoading(false)
             }

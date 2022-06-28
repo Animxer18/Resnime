@@ -148,9 +148,13 @@ function DetailsAnime(props) {
                             }
                         )
                         if(favoFiltered.length>0){
-                            let idFav = favoFiltered[0].id
-                            setIdFavourite(idFav)
-                            setLoadingFavourite(false)
+                            // let idFav = favoFiltered[0].id
+                            let dataFavo = favoFiltered.filter(
+                                (dataFav)=>{
+                                    return dataFav.idAnime===id
+                                }
+                            )
+                                setIdFavourite(dataFavo[0].id)
                             
                             if(favoFiltered.some(data=>data.idAnime===id)){
                                 setIsFavourite(true)
@@ -176,7 +180,6 @@ function DetailsAnime(props) {
                 await setUserData(user)
             });
             fetchDataFavourites()
-             
              
         },[auth, userData]  
     )

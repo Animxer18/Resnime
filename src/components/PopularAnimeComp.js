@@ -9,7 +9,7 @@ function PopularAnimeComp() {
 
     //function fetch recent release anime
     const fetchDataRecent = async()=>{
-        await axios.get("https://raznime.herokuapp.com/popular").then(
+        await axios.get("https://animexer1-api.vercel.app/popular").then(
             (response)=>{
                 setPopular(response.data)
                 setLoading(false)

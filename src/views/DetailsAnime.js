@@ -28,7 +28,7 @@ function DetailsAnime(props) {
     const auth = getAuth(app)
    
     let fetchDataDetails = async()=>{
-        await axios.get(`https://raznime.herokuapp.com/anime-details/${id}`)
+        await axios.get(`https://animexer1-api.vercel.app/anime-details/${id}`)
         .then(
             (res)=>{
                 if(res.data.hasOwnProperty('error')){

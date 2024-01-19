@@ -9,7 +9,7 @@ function MoviesComp() {
 
     //function fetch movies release anime
     const fetchDataMovies = async()=>{
-        await axios.get("https://raznime.herokuapp.com/anime-movies")
+        await axios.get("https://animexer1-api.vercel.app/anime-movies")
         .then(
             (response)=>{
                 setMovies(response.data)

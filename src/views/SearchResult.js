@@ -19,7 +19,7 @@ function SearchResult(props) {
 
     const fetchSearchResult = async()=>{
         setLoading(true)
-        await axios.get(`https://raznime.herokuapp.com/search?keyw=${searchFin}`)
+        await axios.get(`https://animexer1-api.vercel.app/search?keyw=${searchFin}`)
         .then(
             (res)=>{
                 setResult(res.data)
